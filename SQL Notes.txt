@@ -1,0 +1,358 @@
+Data types:
+	Number (P,S) P= Precison: total number of digits , S: fixed floating point numbers
+	Number (P) maximum length of the precision is upto 38
+	
+	ex: create table test(
+			sno number(5,2));
+			when we use  (P,S) the total number of digits before decimal places to P-S
+			
+			
+	Char: alpha numeric
+	varchar: variable length alpha numeric data: ANSI standard(American National Standards Institute)
+	varchar2: max size (oracle database only  )
+	
+===================================================================================================================
+===================================================================================================================
+
+Normalization : it is used to avoid the redendency.
+any database which is satisfies upto the 3rd normalization form that implies good schema or database design
+
+1NF :If a relation contains a composite or multi-valued attribute, it violates the first normal form.
+A relation is in first normal form if every attribute in that relation is singled valued attribute. 
+
+I/P: un normalized data
+O/P: relation with  1NF
+
+conditions:
+
+- All the attribute values should be atomic (single value)
+- attribute shiuld not have multivalues, composite
+- all the attribute should be unique
+
+ID   Name   Courses
+------------------
+1    A      c1, c2
+2    E      c3
+3    M      C2, c3 
+
+the above example courses contain multiple values so it is not 1NF
+
+
+ID   Name   Course
+------------------
+1    A       c1
+1    A       c2
+2    E       c3
+3    M       c2
+3    M       c3
+
+above table is in 1NF as there is no multi-valued attribute 
+
+
+2NF:
+I/P: relation with 1NF
+O/P: relation with 2NF
+
+conditions:
+	Relation should be in 1NF
+	Relation should not have PARTIAL FUNCTIONAL DEPENDENCY.
+	(the table should not contain two or more primary keys)
+	
+	
+ex:
+
+STUD_NO            COURSE_NO        COURSE_FEE
+1                     C1                  1000
+2                     C2                  1500
+1                     C4                  2000
+4                     C3                  1000
+4                     C1                  1000
+2                     C5                  2000
+
+===============================================================================
+
+       Table 1                    =                Table 2
+STUD_NO            COURSE_NO      =   COURSE_NO                COURSE_FEE     
+1                 C1              =    C1                        1000		
+2                 C2              =    C2                        1500
+1                 C4              =    C3                        1000
+4                 C3              =    C4                        2000
+4                 C1              =    C5                        2000        
+2                 C5                      
+
+
+Note – 2NF tries to reduce the redundant data getting stored in memory.
+For instance, if there are 100 students taking C1 course,
+we dont need to store its Fee as 1000 for all the 100 records, 
+instead once we can store it in the second table as the course fee for C1 is 1000.
+
+===============================
+
+create table as: it is reffer to create the table from the existing 
+table by coping the columns of existing table.
+
+ex: 
+copy entire table:
+
+	create table newtable 
+	as (select * from old table)
+	where condition;
+
+copy selected columns:
+
+	create table newtable 
+	as (select col1,col2,col3,col4 from old table)
+	where condition;
+
+copy selected columns from multiple tables
+
+	create table newtable
+	as (select col1,col2,col3,coln from table1,table2,table3,table n)
+	where condition;
+
+=========================================================================
+day 2:
+
+constraints : are used to stop invalid data enter into our
+database or table
+
+constraints are 5 types:
+
+Not null : it is does not accept null values,but it accept duplicate values,
+it does not support at table level
+
+unique : it is used to insert only unique(different) values into the rows. 
+and it aloow null values. when we create a unique constraint oracle server will autoatically 
+create a B-tree.
+
+check : 
+primary
+foreign key
+====================================================================
+select * from ALL_IND_COLUMNS where TABLE_OWNER = 'ORACLEDB1';
+
+SELECT * FROM ALL_CONSTRAINTS WHERE OWNER = 'ORACLEDB1';
+====================================================================
+
+
+
+1)	Display all the employees whose name start with P
+
+
+
+2)	Display all the analyst and clerks in department 10 and 20
+
+
+
+3)	List all the department names which are having blank space in their location and                                     having Dname with at least two EE's
+
+
+
+4)	Display all the employees who are having at least two AA's in their job description and salary in the range 1200 to 2800 in dept 10,20,30.
+
+
+5)	Display all the employees who aren't having any reporting manager with number ending with '8' and not working as 'MANAGER' or 'SALESMAN' in dept 30.
+
+
+
+6)	List all the employees who are not getting any commission with their designation neither 'CLERK' nor 'MANAGER' and joined in the year 81 and getting salary more than 1500.
+
+
+
+7)	List all the employees whose name is having at least FIVE characters and joined in the year 80 or 81 and having a reporting manager with salary in the range 800 to 2000 in dept 30 or 40.
+
+
+
+8)	Display all the employees whose name is having exactly 5 characters and having vowel as middle character
+
+
+9)	Display all the products whose name is having 2 consecutive underscores
+
+
+
+10)	Display all the employees whose name starts with s and does not end with vowel
+
+
+
+11)	Display all the products whose name is having ' (single quote) as character
+
+
+12)	Display all the employees who is working as manager for only one employee
+
+
+13)	List all the employees where reporting manager ID is ending with the number 8?
+
+
+14)	List all the employees who's job is salesman and the salary ranges between 1500 to 3000?
+
+15)	List all the employees who are working as managers and salesman in dept 20 & 30 with a salary in the range of 1000 to 3000?
+
+
+16)	List all the employees who's salary is in the range of 1000 to 2000 in dept 10,20,30 except all clerks?
+17)	List all the employees who's names starts with letter A and who's salary is greater than 1000?
+
+
+
+18)	List all the student name whose percentage is above 60.
+
+19)	Display all the employee whose name has consecutive m in it.
+
+
+20)	Display all the employee whose job not belongs to clerk and whose department number is 10 and 20.
+
+21)	List all the employee names who as always two P's and whose salary ranges between 1000 to 3000.
+
+22)	Display all the employee name who don't have commission and working in department 10,20.
+
+
+23)	list all the employees who is not having reporting manager in dept 20 and 30.
+
+24)	list all the employees whose name does not start with A
+
+25)	display all the employees who have joined in the year 87.
+26)	list the employees who have 2 T's in there name.
+
+
+
+27)	list all the employees whose employee no is not 7654.
+
+
+
+28)	Write a query to display all the salesmen in Dept 30
+
+
+
+29)	Write a query to display the employees whose salary is 3000 and 2000
+
+
+30)	List all the employees whose name has at least one R in it.
+
+
+31)	List all the employees whose salary is between the range 800 and 2500
+
+32)	List all the employees except who works for Dept 30
+
+
+33)	Display all the employees who's analyst salary greater than equal to 2000.
+
+
+
+34)	Display all the employees who's name end with T and start with A .
+
+
+35)	Display all the employees who are managers and with their annual salary
+
+36)	Display all the employees who are salesmen and with their annual bonus
+
+37)	Display all the employees who's job name end with second character E
+
+38)	Display all the employee who don't have commission and salary greater than 1000.
+39)	Display department name which 'LL' in their Location.
+40)	List all the employee whose department is not 20 and name don't have 'M' as first letter.
+
+
+41)	List all the employee with employee number between 7000 to 8000.
+
+
+42)	Display all the employee whose salary not in the range from 1500 to 3000.
+
+43)	Display all the employees having greater than 1000 who joined in the month of December and  who having reporting manager ?
+
+
+
+44)	Display all the employees who have the at least minimum 4 characters in  their jobs in the department 20?
+
+
+45)	List all the employee who are in  clerk name  end with s except department number 10 ?
+
+46)	Display  the employee name should be 5 character?
+
+47)	List all the employee who are getting salary more than highest commission?
+48)	Display the sentence  with a combination of ename ,sal ,deptno from emp table
+
+
+49)	Display the employee whose second letter from the beginning is 'A'  and the last second letter is 'R'
+
+50)	Display the employee who is earning salary more than 300/- but not more than 3000/-
+
+51)	Display the details of analyst
+
+52)	Display the details of employee who does not take commission
+
+
+53)	List all employee with annual salary with 500 rs bonus and working as manager joined in the month of April and may
+
+
+54)	Write a query to display employee whose emp no starts with 78 and 79 whose designation contains at least one  E  in dept no 20 and 30
+
+
+
+-- unique jobs in deptno 20
+select job from emp where deptno = 20
+minus
+select job from emp where deptno = 10
+minus
+select job from emp where deptno = 30;
+
+--list the employees when there is more then 10 number in deptno 10
+select * from emp
+where exists (select deptno,count(*) from emp
+                where deptno = 10
+                group by deptno
+                having count(*)>=10);
+
+--list the emp names whose salary is greater then the lowest salary in the deptno 10                
+select ename from emp
+where sal >any (select sal from emp where deptno = 10);
+
+--3rd highest salary from emp
+select * from 
+(select ename, sal, dense_rank() over(order by sal desc) r from emp) where r = 3;
+
+select ename, sal from emp
+order by sal desc
+offset 2 rows fetch next 1 row only;
+
+-- lowest 5 salarys of employees
+select ename,sal from emp
+order by sal
+fetch first 5 rows only;
+
+create table emp5(
+    empid int,
+    name varchar2(20),
+    sal int);
+    
+create table stud(
+    stid  int,
+    sname varchar2(20),
+    fee int);
+    
+create table offcier(
+    off_id int,
+    off_name varchar(2),
+    off_sal int);
+
+insert into emp5 values (1,'Rajesh',1000);
+insert into emp5 values (2,'Rakesh',1100);
+insert into emp5 values (3,'Ramesh',1200);
+select * from emp5;
+
+insert into stud values(1,'Naveen',5000);
+insert into stud values(2,'Janu',6000);
+insert into stud values(3,'Sravs',5500);
+select * from stud;
+
+insert into offcier values (1,'Police',10000);
+insert into offcier values (2,'Doctor',20000);
+insert into offcier values (3,'Driver',15000);
+insert into offcier values (4,'Worker',1000);
+select * from offcier;
+
+select empid, sal, sal*12 as annual_sal,sal*12-sal*12*5/100 increment_sal, sal*12 +(sal*12-sal*12*5/100) as total_sal from emp5
+union 
+select stid, fee, fee*12 as annual_fee, fee*12-fee*12*5/100 as increment_fee, fee*12 + fee*12-fee*12*5/100 as totsl_sal from stud
+union 
+select off_id, off_sal, off_sal*12 as annual_sal, off_sal*12-off_sal*12*5/100 as increment_sal,off_sal*12 + off_sal*12-off_sal*12*5/100 as total_sal from offcier;
+
+
